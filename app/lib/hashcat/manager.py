@@ -12,7 +12,7 @@ class HashcatManager:
         self.autoid = autoid
 
     def get_supported_hashes(self):
-        output = self.shell.execute([self.hashcat_binary, '--help'], user_id=0, log_to_db=False)
+        output = self.shell.execute([self.hashcat_binary, '-hh'], user_id=0, log_to_db=False)
 
         # Split lines using \n and run strip against all elements of the list.
         lines = list(map(str.strip, output.split("\n")))
@@ -68,7 +68,7 @@ class HashcatManager:
         alphanum_hashes = {}
         parent_code = ''
         for line in lines:
-            if line == '- [ Hash modes ] -':
+            if line == '- [ Hash Modes ] -':
                 found = True
             elif found and line == '' and len(hashes) > 0:
                 break

@@ -1,0 +1,18 @@
+services:
+  cracker:
+    build: .
+    ports:
+      - "8070:5000"
+    volumes:
+      - ./HWEB:/root/HWEB
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: ["gpu", "compute", "utility"]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    restart: unless-stopped
